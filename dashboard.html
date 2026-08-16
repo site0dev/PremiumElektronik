@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – Bestellungen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f6f8fc; padding:2rem; }
+    h1 { font-size:2rem; margin-bottom:0.2rem; }
+    .sub { color:#64748b; margin-bottom:1.5rem; }
+    table { width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.06); }
+    th, td { padding:0.8rem 1rem; text-align:left; border-bottom:1px solid #e2e8f0; }
+    th { background:#0f172a; color:white; font-weight:600; }
+    .status-pending { color:#f59e0b; font-weight:600; }
+    .status-paid { color:#22c55e; font-weight:600; }
+    .btn {
+      background:#0f172a; color:white; border:none; padding:0.4rem 1.2rem;
+      border-radius:40px; cursor:pointer; font-weight:500; transition:0.25s;
+    }
+    .btn:hover { background:#fbbf24; color:#0f172a; }
+    .empty { text-align:center; color:#94a3b8; padding:2rem; }
+  </style>
+</head>
+<body>
+  <h1>📋 Bestellungen</h1>
+  <p class="sub">Liste aller eingegangenen Bestellungen. Marquez‑les als bezahlt nach Eingang des Geldes.</p>
+  <div id="ordersList"></div>
+
+  <script>
+    async function loadOrders() {
+      const res = await fetch('/api/orders');
+      const orders = await res.json();
+      const container = document.getElementById('ordersList');
+      if (orders.length === 0) {
+        container.innerHTML = '<div class="empty">Aucune commande pour l\'instant.</div>';
+        return;
+      }
+      let html = `<table>
+        <tr><th>Référence</th><th>Total</th><th>Articles</th><th>Statut</th><th>Date</th><th>Action</th></tr>`;
+      orders.reverse().forEach(o => {
+        const items = o.items.map(i => i.name).join(', ');
+        const statusClass = o.status.includes('payée') ? 'status-paid' : 'status-pending';
+        html += `<tr>
+          <td><strong>${o.reference}</strong></td>
+          <td>${o.total.toFixed(2)} €</td>
+          <td>${items.slice(0, 60)}${items.length > 60 ? '...' : ''}</td>
+          <td class="${statusClass}">${o.status}</td>
+          <td>${new Date(o.date).toLocaleDateString('de-DE')}</td>
+          <td>${o.status.includes('payée') ? '✅' : `<button class="btn" onclick="markPaid('${o.reference}')">Als bezahlt markieren</button>`}</td>
+        </tr>`;
+      });
+      html += '</table>';
+      container.innerHTML = html;
+    }
+
+    async function markPaid(reference) {
+      if (!confirm(`Commande ${reference} als bezahlt markieren ?`)) return;
+      await fetch('/api/mark-paid', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ reference })
+      });
+      loadOrders();
+    }
+
+    loadOrders();
+  </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Elektronik – PCs, iPhones, Samsung & Kameras</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f6f8fc; color:#1e293b; line-height:1.5; }
+    :root {
+      --primary:#0f172a; --accent:#fbbf24; --accent-hover:#f59e0b;
+      --text-muted:#64748b; --shadow:0 8px 30px rgba(0,0,0,0.06); --radius:16px;
+      --transition:0.25s ease;
+    }
+    a { text-decoration:none; color:inherit; }
+
+    /* HEADER */
+    header {
+      background:var(--primary); color:white; padding:0.8rem 2rem;
+      display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+      position:sticky; top:0; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,0.2);
+    }
+    .logo { font-size:1.8rem; font-weight:700; display:flex; align-items:center; gap:0.4rem; }
+    .logo i { color:var(--accent); }
+    .header-actions { display:flex; align-items:center; gap:1.8rem; }
+    .cart-icon {
+      position:relative; cursor:pointer; font-size:1.7rem;
+      transition:var(--transition); color:white;
+    }
+    .cart-icon:hover { color:var(--accent); }
+    .cart-count {
+      position:absolute; top:-10px; right:-12px; background:#ef4444; color:white;
+      border-radius:50%; padding:0 7px; font-size:0.8rem; font-weight:700;
+      min-width:22px; text-align:center; line-height:22px;
+    }
+
+    /* HERO */
+    .hero {
+      background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+      color:white; padding:3rem 2rem 4rem; text-align:center;
+      margin-bottom:2.5rem; border-radius:0 0 40px 40px;
+    }
+    .hero h1 { font-size:2.8rem; font-weight:700; letter-spacing:-0.02em; }
+    .hero h1 i { color:var(--accent); }
+    .hero p { font-size:1.2rem; opacity:0.8; max-width:600px; margin:0.8rem auto 0; }
+
+    /* SHOP */
+    .shop-container { max-width:1400px; margin:0 auto 3rem; padding:0 1.5rem; }
+
+    .categories {
+      display:flex; flex-wrap:wrap; gap:0.6rem; margin-bottom:2.5rem; justify-content:center;
+    }
+    .categories button {
+      background:white; border:1.5px solid #e2e8f0; padding:0.6rem 1.6rem;
+      border-radius:40px; font-weight:600; font-size:0.95rem; cursor:pointer;
+      transition:var(--transition); color:var(--text-muted);
+    }
+    .categories button:hover { border-color:var(--primary); color:var(--primary); background:#f1f5f9; }
+    .categories button.active { background:var(--primary); color:white; border-color:var(--primary); }
+
+    .products-grid {
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(270px,1fr)); gap:2rem;
+    }
+    .product-card {
+      background:white; border-radius:var(--radius); overflow:hidden;
+      box-shadow:var(--shadow); transition:transform var(--transition), box-shadow var(--transition);
+      display:flex; flex-direction:column;
+    }
+    .product-card:hover { transform:translateY(-8px); box-shadow:0 16px 40px rgba(0,0,0,0.08); }
+    .product-image {
+      height:210px; background:#f1f5f9; display:flex; align-items:center;
+      justify-content:center; overflow:hidden;
+    }
+    .product-image img { width:100%; height:100%; object-fit:contain; transition:transform 0.4s; }
+    .product-card:hover .product-image img { transform:scale(1.03); }
+    .product-info { padding:1.2rem 1.2rem 1.4rem; flex:1; display:flex; flex-direction:column; }
+    .product-name { font-size:1.1rem; font-weight:600; margin-bottom:0.2rem; line-height:1.3; }
+    .product-category { font-size:0.8rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.6rem; }
+    .product-price { font-size:1.4rem; font-weight:700; color:var(--primary); margin:0.4rem 0 0.8rem; }
+    .add-to-cart {
+      background:var(--primary); color:white; border:none; padding:0.7rem 1rem;
+      border-radius:40px; font-weight:600; cursor:pointer; transition:var(--transition);
+      display:flex; align-items:center; justify-content:center; gap:8px; margin-top:auto; font-size:0.95rem;
+    }
+    .add-to-cart:hover { background:var(--accent); color:var(--primary); }
+
+    /* SIDEBAR PANIER */
+    .cart-sidebar {
+      position:fixed; top:0; right:-480px; width:440px; max-width:100%; height:100%;
+      background:white; box-shadow:-6px 0 30px rgba(0,0,0,0.12);
+      transition:right 0.35s cubic-bezier(0.22,1,0.36,1);
+      padding:2rem 1.8rem; display:flex; flex-direction:column; z-index:1000; overflow-y:auto;
+    }
+    .cart-sidebar.open { right:0; }
+    .cart-header {
+      display:flex; justify-content:space-between; align-items:center;
+      border-bottom:2px solid #f1f5f9; padding-bottom:1rem; margin-bottom:1.2rem;
+    }
+    .cart-header h2 { font-size:1.6rem; font-weight:700; display:flex; align-items:center; gap:0.5rem; }
+    .close-cart {
+      background:none; border:none; font-size:2rem; cursor:pointer; color:#94a3b8;
+      transition:var(--transition); line-height:1;
+    }
+    .close-cart:hover { color:#ef4444; transform:rotate(90deg); }
+    .cart-items { flex:1; list-style:none; margin-bottom:1.2rem; overflow-y:auto; }
+    .cart-item {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:0.8rem 0; border-bottom:1px solid #f1f5f9;
+    }
+    .cart-item-info { display:flex; flex-direction:column; gap:0.1rem; }
+    .cart-item-name { font-weight:500; }
+    .cart-item-price { font-size:0.9rem; color:var(--text-muted); }
+    .cart-item-actions { display:flex; align-items:center; gap:8px; }
+    .cart-item-actions button {
+      background:#f1f5f9; border:none; width:28px; height:28px; border-radius:50%;
+      font-weight:700; cursor:pointer; transition:var(--transition); font-size:1rem; color:var(--primary);
+    }
+    .cart-item-actions button:hover { background:#e2e8f0; }
+    .cart-item-actions .remove-btn {
+      background:transparent; color:#ef4444; width:auto; border-radius:0; font-size:1rem;
+    }
+    .cart-item-actions .remove-btn:hover { background:#fee2e2; }
+    .cart-total {
+      border-top:2px solid #f1f5f9; padding-top:1.2rem;
+      font-size:1.4rem; font-weight:700; display:flex; justify-content:space-between;
+    }
+    .checkout-btn {
+      background:var(--accent); color:var(--primary); border:none; padding:1rem;
+      border-radius:40px; font-weight:700; font-size:1.1rem; cursor:pointer;
+      transition:var(--transition); margin-top:1rem; width:100%;
+      display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .checkout-btn:hover { background:var(--accent-hover); }
+    .empty-cart { text-align:center; color:var(--text-muted); padding:2.5rem 0; font-size:1.1rem; }
+
+    /* OVERLAY */
+    .overlay {
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(15,23,42,0.4); backdrop-filter:blur(4px);
+      opacity:0; visibility:hidden; transition:opacity 0.3s, visibility 0.3s; z-index:999;
+    }
+    .overlay.active { opacity:1; visibility:visible; }
+
+    /* TOAST */
+    .toast {
+      position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+      background:var(--primary); color:white; padding:0.8rem 2rem;
+      border-radius:60px; box-shadow:0 8px 24px rgba(0,0,0,0.2);
+      opacity:0; transition:opacity 0.4s; z-index:2000; font-weight:500; pointer-events:none; font-size:0.95rem;
+    }
+    .toast.show { opacity:1; }
+
+    footer {
+      background:var(--primary); color:rgba(255,255,255,0.7); text-align:center;
+      padding:2rem 1rem; margin-top:2rem; font-size:0.9rem;
+    }
+    footer span { color:white; }
+
+    @media (max-width:700px) {
+      header { padding:0.6rem 1rem; }
+      .logo { font-size:1.4rem; }
+      .hero h1 { font-size:2rem; }
+      .hero p { font-size:1rem; }
+      .cart-sidebar { width:100%; right:-100%; padding:1.5rem; }
+      .products-grid { grid-template-columns:repeat(auto-fill, minmax(200px,1fr)); gap:1.2rem; }
+    }
+    @media (max-width:450px) {
+      .products-grid { grid-template-columns:1fr 1fr; }
+      .product-image { height:140px; }
+      .product-name { font-size:0.95rem; }
+      .product-price { font-size:1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo"><i class="fas fa-microchip"></i> Premium Elektronik</div>
+    <div class="header-actions">
+      <div class="cart-icon" id="cartIcon">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1><i class="fas fa-bolt"></i> Premium Elektronik</h1>
+    <p>Die neuesten PCs, iPhones, Samsung-Geräte und Kameras – exklusiv bei Premium Elektronik.</p>
+  </section>
+
+  <!-- SHOP -->
+  <div class="shop-container">
+    <div class="categories" id="categories">
+      <button class="active" data-category="all">Alle</button>
+      <button data-category="pc">PC</button>
+      <button data-category="iphone">iPhone</button>
+      <button data-category="samsung">Samsung</button>
+      <button data-category="camera">Kameras</button>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </div>
+
+  <!-- PANIER SIDEBAR -->
+  <div class="overlay" id="overlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h2><i class="fas fa-shopping-bag"></i> Warenkorb</h2>
+      <button class="close-cart" id="closeCart">&times;</button>
+    </div>
+    <ul class="cart-items" id="cartItems"></ul>
+    <div class="cart-total"><span>Gesamt</span><span id="cartTotal">0,00 €</span></div>
+    <button class="checkout-btn" id="checkoutBtn">
+      <i class="fas fa-credit-card"></i> Zur Kasse
+    </button>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer>&copy; 2026 <span>Premium Elektronik</span> – Alle Rechte vorbehalten.</footer>
+
+  <script>
+    // ============================================================
+    // PRODUKTDATEN
+    // ============================================================
+    const products = [
+      { id:1, name:"PC Gamer Asus ROG Strix", category:"pc", price:1499.99, image:"pcgamerasusrogstrix.jpeg" },
+      { id:2, name:"PC Portable Dell XPS 13", category:"pc", price:1299.00, image:"pcportabledellxps13.jpeg" },
+      { id:3, name:"PC Tour Acer Predator", category:"pc", price:1799.50, image:"pctouracreprator.jpg" },
+      { id:4, name:"iPhone 15 Pro Max", category:"iphone", price:1479.00, image:"iphone15promax.jpg" },
+      { id:5, name:"iPhone 15 Plus", category:"iphone", price:1129.00, image:"iphone15plus.jpg" },
+      { id:6, name:"iPhone 14 Pro", category:"iphone", price:1099.00, image:"iphone14pro.jpg" },
+      { id:7, name:"Samsung Galaxy S24 Ultra", category:"samsung", price:1399.00, image:"samsunggalaxys24.jpeg" },
+      { id:8, name:"Samsung Galaxy Z Fold5", category:"samsung", price:1799.00, image:"samsunggalaxy25fold.jpg" },
+      { id:9, name:"Samsung Galaxy A54", category:"samsung", price:499.00, image:"samsunggalaxya54.jpg" },
+      { id:10, name:"Canon EOS R6 Mark II", category:"camera", price:2599.00, image:"canonesor6ii.ipea" },
+      { id:11, name:"Sony Alpha 7 IV", category:"camera", price:2499.00, image:"sonyalpha7iv.jpg" },
+      { id:12, name:"Nikon Z8", category:"camera", price:3999.00, image:"nikonz8.jpeg" }
+    ];
+
+    // ============================================================
+    // PANIER
+    // ============================================================
+    let cart = JSON.parse(localStorage.getItem('techCart')) || [];
+
+    function saveCart() { localStorage.setItem('techCart', JSON.stringify(cart)); }
+
+    function updateCart() {
+      const totalItems = cart.reduce((s,i) => s + i.quantity, 0);
+      document.getElementById('cartCount').textContent = totalItems;
+      const totalPrice = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+      document.getElementById('cartTotal').textContent = totalPrice.toFixed(2) + ' €';
+      const el = document.getElementById('cartItems');
+      if (cart.length === 0) {
+        el.innerHTML = `<li class="empty-cart">Ihr Warenkorb ist leer.</li>`;
+      } else {
+        el.innerHTML = cart.map(item => `
+          <li class="cart-item" data-id="${item.id}">
+            <div class="cart-item-info">
+              <span class="cart-item-name">${item.name}</span>
+              <span class="cart-item-price">${(item.price * item.quantity).toFixed(2)} €</span>
+            </div>
+            <div class="cart-item-actions">
+              <button class="qty-btn" data-id="${item.id}" data-delta="-1">−</button>
+              <span>${item.quantity}</span>
+              <button class="qty-btn" data-id="${item.id}" data-delta="1">+</button>
+              <button class="remove-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </li>
+        `).join('');
+        document.querySelectorAll('.qty-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = parseInt(b.dataset.id);
+            const delta = parseInt(b.dataset.delta);
+            changeQuantity(id, delta);
+          });
+        });
+        document.querySelectorAll('.remove-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            const id = parseInt(b.dataset.id);
+            removeFromCart(id);
+          });
+        });
+      }
+    }
+
+    function addToCart(id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      const existing = cart.find(x => x.id === id);
+      if (existing) existing.quantity += 1;
+      else cart.push({ ...p, quantity:1 });
+      updateCart(); saveCart();
+      showToast(`${p.name} wurde hinzugefügt!`);
+    }
+
+    function removeFromCart(id) {
+      cart = cart.filter(x => x.id !== id);
+      updateCart(); saveCart();
+    }
+
+    function changeQuantity(id, delta) {
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+      const newQty = item.quantity + delta;
+      if (newQty <= 0) removeFromCart(id);
+      else { item.quantity = newQty; updateCart(); saveCart(); }
+    }
+
+    // ============================================================
+    // AFFICHAGE PRODUITS
+    // ============================================================
+    function renderProducts(cat = 'all') {
+      const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+      const grid = document.getElementById('productsGrid');
+      if (!filtered.length) {
+        grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#64748b; padding:2rem;">Keine Produkte in dieser Kategorie.</p>`;
+        return;
+      }
+      grid.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          <div class="product-image">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23f1f5f9%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22 fill=%22%2394a3b8%22 font-family=%22sans-serif%22 font-size=%2214%22%3EBild%20fehlt%3C/text%3E%3C/svg%3E'">
+          </div>
+          <div class="product-info">
+            <div class="product-name">${p.name}</div>
+            <div class="product-category">${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</div>
+            <div class="product-price">${p.price.toFixed(2)} €</div>
+            <button class="add-to-cart" data-id="${p.id}">
+              <i class="fas fa-cart-plus"></i> In den Warenkorb
+            </button>
+          </div>
+        </div>
+      `).join('');
+      document.querySelectorAll('.add-to-cart').forEach(b => {
+        b.addEventListener('click', () => addToCart(parseInt(b.dataset.id)));
+      });
+    }
+
+    // ============================================================
+    // PAIEMENT PAR VIREMENT (envoi au serveur)
+    // ============================================================
+    document.getElementById('checkoutBtn').addEventListener('click', async function(e) {
+      e.preventDefault();
+      if (cart.length === 0) { showToast('Ihr Warenkorb ist leer!'); return; }
+      const total = cart.reduce((s,i) => s + i.price * i.quantity, 0);
+      const reference = 'CMD-' + Date.now();
+      const btn = this;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Wird gespeichert...';
+      try {
+        const res = await fetch('/api/create-order', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ reference, total, items: cart })
+        });
+        const data = await res.json();
+        if (data.success) {
+          window.location.href = `/confirmation.html?reference=${reference}`;
+        } else {
+          showToast('❌ Fehler beim Speichern der Bestellung.');
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-credit-card"></i> Zur Kasse';
+        }
+      } catch (err) {
+        showToast('❌ Netzwerkfehler. Bitte versuchen Sie es erneut.');
+        console.error(err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-credit-card"></i> Zur Kasse';
+      }
+    });
+
+    // ============================================================
+    // SIDEBAR
+    // ============================================================
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('overlay');
+    document.getElementById('cartIcon').addEventListener('click', () => {
+      sidebar.classList.add('open');
+      overlay.classList.add('active');
+    });
+    document.getElementById('closeCart').addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    });
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    });
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+    let toastTimeout;
+    function showToast(msg) {
+      const el = document.getElementById('toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    // ============================================================
+    // CATÉGORIES
+    // ============================================================
+    document.querySelectorAll('.categories button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.categories button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(btn.dataset.category);
+      });
+    });
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    renderProducts('all');
+    updateCart();
+  </script>
+</body>
+</html>
