@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="de">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Premium Électronique – PC, Smartphones & Appareils photo</title>
+    <title>Premium Elektronik – PCs, Smartphones & Kameras</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <style>
@@ -464,6 +464,43 @@
         }
         footer span { color: white; }
 
+        /* ===== NEUE STYLES FÜR LIEFERADRESSE ===== */
+        .delivery-section {
+            margin: 1rem 0 1.2rem;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 1rem;
+        }
+        .delivery-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            margin-bottom: 0.6rem;
+        }
+        .delivery-section input, .delivery-section select {
+            width: 100%;
+            padding: 0.6rem 0.8rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            background: #f8fafc;
+            transition: var(--transition);
+            margin-bottom: 0.5rem;
+        }
+        .delivery-section input:focus, .delivery-section select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(15,23,42,0.1);
+        }
+        .delivery-section .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
         @media (max-width: 700px) {
             .logo { font-size: 1.2rem; }
             .cart-icon { width: 40px; height: 40px; font-size: 1.4rem; }
@@ -476,6 +513,7 @@
             .add-to-cart { font-size: 0.75rem; min-height: 38px; }
             .cart-sidebar { width: 100%; right: -100%; padding: 1rem; }
             .payment-modal { padding: 1.2rem; width: 95%; }
+            .delivery-section .row { grid-template-columns: 1fr; }
         }
         @media (max-width: 420px) {
             .products-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
@@ -501,7 +539,7 @@
             <i class="fas fa-microchip"></i> Premium
         </div>
         <div class="header-actions">
-            <div class="cart-icon" id="cartIcon" aria-label="Ouvrir le panier">
+            <div class="cart-icon" id="cartIcon" aria-label="Warenkorb öffnen">
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count" id="cartCount">0</span>
             </div>
@@ -510,18 +548,18 @@
 
     <!-- ========== HERO ========== -->
     <section class="hero">
-        <h1><i class="fas fa-bolt"></i> Premium Électronique</h1>
-        <p>Les derniers PC, smartphones et appareils photo – exclusivement chez Premium Électronique.</p>
+        <h1><i class="fas fa-bolt"></i> Premium Elektronik</h1>
+        <p>Die neuesten PCs, Smartphones und Kameras – exklusiv bei Premium Elektronik.</p>
     </section>
 
     <!-- ========== SHOP ========== -->
     <div class="shop-container">
         <div class="categories" id="categories">
-            <button class="active" data-category="all">Tous</button>
+            <button class="active" data-category="all">Alle</button>
             <button data-category="pc">PC</button>
             <button data-category="iphone">iPhone</button>
             <button data-category="android">Android</button>
-            <button data-category="camera">Appareils photo</button>
+            <button data-category="camera">Kameras</button>
         </div>
         <div class="products-grid" id="productsGrid"></div>
     </div>
@@ -530,46 +568,62 @@
     <div class="overlay" id="overlay"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h2><i class="fas fa-shopping-bag"></i> Panier</h2>
-            <button class="close-cart" id="closeCart" aria-label="Fermer le panier">&times;</button>
+            <h2><i class="fas fa-shopping-bag"></i> Warenkorb</h2>
+            <button class="close-cart" id="closeCart" aria-label="Warenkorb schließen">&times;</button>
         </div>
         <ul class="cart-items" id="cartItems"></ul>
         <div class="cart-total">
-            <span>Total</span>
+            <span>Gesamt</span>
             <span id="cartTotal">0,00 €</span>
         </div>
         <button class="checkout-btn" id="checkoutBtn">
-            <i class="fas fa-credit-card"></i> Passer à la caisse
+            <i class="fas fa-credit-card"></i> Zur Kasse
         </button>
     </div>
 
     <!-- ========== MODALE DE PAIEMENT ========== -->
     <div class="overlay" id="paymentOverlay"></div>
     <div class="payment-modal" id="paymentModal">
-        <h2><i class="fas fa-university"></i> Virement</h2>
-        <p style="margin-bottom: 0.2rem;">Veuillez virer le montant total à :</p>
+        <h2><i class="fas fa-truck"></i> Bestellung abschließen</h2>
+
+        <!-- NEU: Lieferadresse -->
+        <div class="delivery-section">
+            <h3><i class="fas fa-address-card"></i> Lieferadresse</h3>
+            <div class="row">
+                <input type="text" id="deliveryFirstname" placeholder="Vorname *" required>
+                <input type="text" id="deliveryLastname" placeholder="Nachname *" required>
+            </div>
+            <input type="text" id="deliveryStreet" placeholder="Straße und Hausnummer *" required>
+            <div class="row">
+                <input type="text" id="deliveryZip" placeholder="PLZ *" required>
+                <input type="text" id="deliveryCity" placeholder="Stadt *" required>
+            </div>
+            <input type="text" id="deliveryCountry" placeholder="Land *" required>
+        </div>
+
+        <p style="margin-bottom: 0.2rem;">Bitte überweisen Sie den Gesamtbetrag an:</p>
         <div class="iban-box">
             <span id="ibanDisplay">DE45 1001 0010 0410 6791 18</span>
-            <button class="copy-btn" id="copyIbanBtn"><i class="fas fa-copy"></i> Copier</button>
+            <button class="copy-btn" id="copyIbanBtn"><i class="fas fa-copy"></i> Kopieren</button>
         </div>
         <div class="bank-details">
-            <strong>Bénéficiaire :</strong> Premium Électronique GmbH<br>
-            <strong>BIC :</strong> PBNKDEFF<br>
-            <strong>Motif :</strong> Commande #<span id="orderRef">2026-0816</span>
+            <strong>Empfänger:</strong> Premium Elektronik GmbH<br>
+            <strong>BIC:</strong> PBNKDEFF<br>
+            <strong>Verwendungszweck:</strong> Bestellung #<span id="orderRef">2026-0816</span>
         </div>
 
         <div class="upload-section">
-            <label for="paymentProof"><i class="fas fa-image"></i> Justificatif / Capture d'écran</label>
-            <div class="helper">Téléchargez une capture d'écran de votre virement.</div>
+            <label for="paymentProof"><i class="fas fa-image"></i> Beleg / Screenshot</label>
+            <div class="helper">Laden Sie einen Screenshot Ihrer Überweisung hoch.</div>
             <input type="file" id="paymentProof" accept="image/*">
             <div class="preview-container" id="previewContainer"></div>
         </div>
 
         <button class="close-payment-btn" id="finalConfirmBtn">
-            <i class="fas fa-check-circle"></i> Confirmer le paiement & envoyer un e-mail
+            <i class="fas fa-check-circle"></i> Zahlung bestätigen & E-Mail senden
         </button>
         <p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.4rem; text-align:center;">
-            Votre client de messagerie s'ouvrira avec tous les détails. Veuillez joindre le justificatif manuellement.
+            Es öffnet sich Ihr E-Mail-Client mit allen Details. Bitte fügen Sie den Beleg manuell bei.
         </p>
     </div>
 
@@ -578,7 +632,7 @@
 
     <!-- ========== FOOTER ========== -->
     <footer>
-        &copy; 2026 <span>Premium Électronique</span> – Tous droits réservés.
+        &copy; 2026 <span>Premium Elektronik</span> – Alle Rechte vorbehalten.
     </footer>
 
     <script>
@@ -714,7 +768,7 @@
 
             const cartItemsEl = document.getElementById('cartItems');
             if (cart.length === 0) {
-                cartItemsEl.innerHTML = `<li class="empty-cart">Votre panier est vide.</li>`;
+                cartItemsEl.innerHTML = `<li class="empty-cart">Ihr Warenkorb ist leer.</li>`;
             } else {
                 cartItemsEl.innerHTML = cart.map(item => `
                     <li class="cart-item" data-id="${item.id}">
@@ -723,10 +777,10 @@
                             <span class="cart-item-price">${(item.price * item.quantity).toFixed(2)} €</span>
                         </div>
                         <div class="cart-item-actions">
-                            <button class="qty-btn" data-id="${item.id}" data-delta="-1" aria-label="Réduire la quantité">−</button>
+                            <button class="qty-btn" data-id="${item.id}" data-delta="-1" aria-label="Menge reduzieren">−</button>
                             <span>${item.quantity}</span>
-                            <button class="qty-btn" data-id="${item.id}" data-delta="1" aria-label="Augmenter la quantité">+</button>
-                            <button class="remove-btn" data-id="${item.id}" aria-label="Supprimer"><i class="fas fa-trash-alt"></i></button>
+                            <button class="qty-btn" data-id="${item.id}" data-delta="1" aria-label="Menge erhöhen">+</button>
+                            <button class="remove-btn" data-id="${item.id}" aria-label="Entfernen"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </li>
                 `).join('');
@@ -758,7 +812,7 @@
             }
             updateCart();
             saveCart();
-            showToast(`${product.name} a été ajouté !`);
+            showToast(`${product.name} wurde hinzugefügt!`);
         }
 
         function removeFromCart(productId) {
@@ -789,14 +843,14 @@
             'pc': 'PC',
             'iphone': 'iPhone',
             'android': 'Android',
-            'camera': 'Appareil photo'
+            'camera': 'Kamera'
         };
 
         function renderProducts(category = 'all') {
             const filtered = category === 'all' ? products : products.filter(p => p.category === category);
             const grid = document.getElementById('productsGrid');
             if (filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:2rem;">Aucun produit dans cette catégorie.</p>`;
+                grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:2rem;">Keine Produkte in dieser Kategorie.</p>`;
                 return;
             }
             grid.innerHTML = filtered.map(p => `
@@ -809,7 +863,7 @@
                         <div class="product-category">${categoryNames[p.category] || p.category}</div>
                         <div class="product-price">${p.price.toFixed(2)} €</div>
                         <button class="add-to-cart" data-id="${p.id}">
-                            <i class="fas fa-cart-plus"></i> Ajouter au panier
+                            <i class="fas fa-cart-plus"></i> In den Warenkorb
                         </button>
                     </div>
                 </div>
@@ -877,7 +931,7 @@
             paymentModal.classList.remove('open');
         }
         document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if (cart.length === 0) { showToast('Votre panier est vide !'); return; }
+            if (cart.length === 0) { showToast('Ihr Warenkorb ist leer!'); return; }
             openPaymentModal();
         });
         paymentOverlay.addEventListener('click', closePaymentModal);
@@ -886,7 +940,7 @@
             const file = this.files[0];
             if (!file) { previewContainer.innerHTML = ''; return; }
             if (file.size > 2 * 1024 * 1024) {
-                showToast('⚠️ Fichier trop volumineux (max. 2 Mo).');
+                showToast('⚠️ Datei zu groß (max. 2 MB).');
                 this.value = '';
                 previewContainer.innerHTML = '';
                 return;
@@ -894,43 +948,65 @@
             const reader = new FileReader();
             reader.onload = function(ev) {
                 previewContainer.innerHTML = `
-                    <img src="${ev.target.result}" alt="Aperçu">
-                    <span class="file-name">${file.name} (${(file.size / 1024).toFixed(0)} Ko)</span>
+                    <img src="${ev.target.result}" alt="Vorschau">
+                    <span class="file-name">${file.name} (${(file.size / 1024).toFixed(0)} KB)</span>
                 `;
             };
             reader.readAsDataURL(file);
         });
 
         // ============================================================
-        // 7. VALIDATION + EMAIL
+        // 7. VALIDATION + EMAIL (mit Lieferadresse)
         // ============================================================
         document.getElementById('finalConfirmBtn').addEventListener('click', function() {
+            // Lieferadresse auslesen
+            const firstname = document.getElementById('deliveryFirstname').value.trim();
+            const lastname = document.getElementById('deliveryLastname').value.trim();
+            const street = document.getElementById('deliveryStreet').value.trim();
+            const zip = document.getElementById('deliveryZip').value.trim();
+            const city = document.getElementById('deliveryCity').value.trim();
+            const country = document.getElementById('deliveryCountry').value.trim();
+
+            // Prüfen ob alle Pflichtfelder ausgefüllt sind
+            if (!firstname || !lastname || !street || !zip || !city || !country) {
+                showToast('⚠️ Bitte füllen Sie alle Felder der Lieferadresse aus.');
+                return;
+            }
+
             if (cart.length === 0) {
-                showToast('Votre panier est vide.');
+                showToast('Ihr Warenkorb ist leer.');
                 closePaymentModal();
                 return;
             }
+
             const file = fileInput.files[0];
             const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
             const itemsList = cart.map(i => `${i.name} x ${i.quantity} (${(i.price * i.quantity).toFixed(2)} €)`).join('\n');
             const orderRef = document.getElementById('orderRef').textContent;
             const iban = document.getElementById('ibanDisplay').textContent.trim();
 
-            let body = `Commande #${orderRef}\n\n`;
-            body += `Produits :\n${itemsList}\n\n`;
-            body += `Montant total : ${total} €\n\n`;
-            body += `Coordonnées bancaires :\nIBAN : ${iban}\nBIC : PBNKDEFF\nBénéficiaire : Premium Électronique GmbH\n\n`;
-            body += `--- IMPORTANT ---\n`;
-            if (file) body += `Vous avez téléchargé le fichier "${file.name}".\n`;
-            body += `Veuillez joindre votre justificatif de virement (photo/capture d'écran) à cet e-mail.\n\n`;
-            body += `Merci pour votre commande !`;
+            let body = `Bestellung #${orderRef}\n\n`;
+            body += `Lieferadresse:\n`;
+            body += `Vorname: ${firstname}\n`;
+            body += `Nachname: ${lastname}\n`;
+            body += `Straße: ${street}\n`;
+            body += `PLZ: ${zip}\n`;
+            body += `Stadt: ${city}\n`;
+            body += `Land: ${country}\n\n`;
+            body += `Produkte:\n${itemsList}\n\n`;
+            body += `Gesamtbetrag: ${total} €\n\n`;
+            body += `Bankverbindung:\nIBAN: ${iban}\nBIC: PBNKDEFF\nEmpfänger: Premium Elektronik GmbH\n\n`;
+            body += `--- WICHTIG ---\n`;
+            if (file) body += `Sie haben die Datei "${file.name}" hochgeladen.\n`;
+            body += `Bitte hängen Sie Ihren Überweisungsbeleg (Foto/Screenshot) an diese E-Mail an.\n\n`;
+            body += `Vielen Dank für Ihre Bestellung!`;
 
-            const subject = encodeURIComponent(`Commande #${orderRef}`);
+            const subject = encodeURIComponent(`Bestellung #${orderRef}`);
             const mailBody = encodeURIComponent(body);
             const mailtoLink = `mailto:${STORE_EMAIL}?subject=${subject}&body=${mailBody}`;
 
             window.open(mailtoLink, '_blank');
-            showToast(`✅ Commande #${orderRef} enregistrée ! Veuillez envoyer le justificatif par e-mail.`);
+            showToast(`✅ Bestellung #${orderRef} erfasst! Bitte senden Sie den Beleg per E-Mail.`);
             cart = [];
             updateCart();
             saveCart();
@@ -944,7 +1020,7 @@
             const iban = document.getElementById('ibanDisplay').textContent.trim();
             try {
                 await navigator.clipboard.writeText(iban);
-                showToast('✅ IBAN copié !');
+                showToast('✅ IBAN kopiert!');
             } catch {
                 const textArea = document.createElement('textarea');
                 textArea.value = iban;
@@ -952,7 +1028,7 @@
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showToast('✅ IBAN copié !');
+                showToast('✅ IBAN kopiert!');
             }
         });
 
