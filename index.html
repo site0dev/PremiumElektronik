@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="fr">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-    <title>Premium Elektronik – PCs, Smartphones, Kameras, Haarglätter & Lautsprecher</title>
+    <title>Premium Électronique – PC, Smartphones & Appareils photo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
     <style>
-        /* ========== STYLES COMPLETS (IDENTIQUES) ========== */
+        /* ========== STYLES COMPLETS (IDENTIQUES À LA VERSION PRÉCÉDENTE) ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #f6f8fc; color: #1e293b; line-height: 1.5; -webkit-font-smoothing: antialiased; }
         :root {
@@ -41,21 +41,7 @@
             gap: 0.4rem;
         }
         .logo i { color: var(--accent); }
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-        }
-        .header-actions a {
-            color: rgba(255,255,255,0.8);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-        .header-actions a:hover { color: var(--accent); }
+        .header-actions { display: flex; align-items: center; gap: 1rem; }
         .cart-icon {
             position: relative;
             cursor: pointer;
@@ -344,55 +330,6 @@
         }
         .overlay.active { opacity: 1; visibility: visible; }
 
-        /* ========== STYLES POUR LE FORMULAIRE CLIENT ========== */
-        .client-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.6rem;
-            margin: 0.8rem 0 0.8rem;
-        }
-        .client-form .full-width {
-            grid-column: 1 / -1;
-        }
-        .client-form label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--primary);
-            display: block;
-            margin-bottom: 0.1rem;
-        }
-        .client-form input,
-        .client-form textarea {
-            width: 100%;
-            padding: 0.5rem 0.6rem;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-family: 'Inter', sans-serif;
-            transition: border-color var(--transition);
-            background: white;
-        }
-        .client-form input:focus,
-        .client-form textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.1);
-        }
-        .client-form textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
-        .form-hint {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 0.3rem;
-            grid-column: 1 / -1;
-        }
-        .form-hint .required-star {
-            color: #ef4444;
-            font-weight: 700;
-        }
-
         .payment-modal {
             position: fixed;
             top: 50%;
@@ -403,7 +340,7 @@
             border-radius: var(--radius);
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             z-index: 1100;
-            max-width: 550px;
+            max-width: 500px;
             width: 92%;
             max-height: 95vh;
             overflow-y: auto;
@@ -448,13 +385,12 @@
         .payment-modal .bank-details {
             font-size: 0.9rem;
             color: var(--text-muted);
-            margin: 0.2rem 0 0.5rem;
+            margin: 0.2rem 0 1rem;
             line-height: 1.6;
         }
         .payment-modal .bank-details strong { color: var(--primary); }
-
         .upload-section {
-            margin: 0.8rem 0 1.2rem;
+            margin: 1rem 0 1.2rem;
             border-top: 2px dashed #e2e8f0;
             padding-top: 1rem;
         }
@@ -481,7 +417,6 @@
         }
         .upload-section .preview-container img { max-height: 70px; max-width: 100px; border-radius: 8px; border: 1px solid #e2e8f0; object-fit: cover; }
         .upload-section .preview-container .file-name { font-size: 0.8rem; color: var(--text-muted); word-break: break-all; }
-
         .payment-modal .close-payment-btn {
             background: var(--accent);
             color: var(--primary);
@@ -499,10 +434,6 @@
             gap: 8px;
         }
         .payment-modal .close-payment-btn:hover { background: var(--accent-hover); }
-        .payment-modal .close-payment-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
         .toast {
             position: fixed;
             bottom: 20px;
@@ -534,9 +465,7 @@
         footer span { color: white; }
 
         @media (max-width: 700px) {
-            .client-form { grid-template-columns: 1fr; }
             .logo { font-size: 1.2rem; }
-            .header-actions a { font-size: 0.8rem; }
             .cart-icon { width: 40px; height: 40px; font-size: 1.4rem; }
             .cart-count { font-size: 0.65rem; min-width: 20px; line-height: 20px; top: -4px; right: -4px; }
             .hero h1 { font-size: 1.8rem; }
@@ -572,11 +501,7 @@
             <i class="fas fa-microchip"></i> Premium
         </div>
         <div class="header-actions">
-            <!-- Lien CONTACT / SERVICE CLIENT -->
-            <a href="mailto:votre-service-client@domaine.fr?subject=Kontaktanfrage%20via%20Premium%20Elektronik" title="Service Client">
-                <i class="fas fa-headset"></i> Kontakt
-            </a>
-            <div class="cart-icon" id="cartIcon" aria-label="Warenkorb öffnen">
+            <div class="cart-icon" id="cartIcon" aria-label="Ouvrir le panier">
                 <i class="fas fa-shopping-bag"></i>
                 <span class="cart-count" id="cartCount">0</span>
             </div>
@@ -585,20 +510,18 @@
 
     <!-- ========== HERO ========== -->
     <section class="hero">
-        <h1><i class="fas fa-bolt"></i> Premium Elektronik</h1>
-        <p>Die neuesten PCs, Smartphones, Kameras, Haarglätter und Lautsprecher – exklusiv bei Premium Elektronik.</p>
+        <h1><i class="fas fa-bolt"></i> Premium Électronique</h1>
+        <p>Les derniers PC, smartphones et appareils photo – exclusivement chez Premium Électronique.</p>
     </section>
 
     <!-- ========== SHOP ========== -->
     <div class="shop-container">
         <div class="categories" id="categories">
-            <button class="active" data-category="all">Alle</button>
+            <button class="active" data-category="all">Tous</button>
             <button data-category="pc">PC</button>
             <button data-category="iphone">iPhone</button>
             <button data-category="android">Android</button>
-            <button data-category="camera">Kameras</button>
-            <button data-category="haarglatter">Haarglätter</button>
-            <button data-category="lautsprecher">Lautsprecher</button>
+            <button data-category="camera">Appareils photo</button>
         </div>
         <div class="products-grid" id="productsGrid"></div>
     </div>
@@ -607,74 +530,46 @@
     <div class="overlay" id="overlay"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h2><i class="fas fa-shopping-bag"></i> Warenkorb</h2>
-            <button class="close-cart" id="closeCart" aria-label="Warenkorb schließen">&times;</button>
+            <h2><i class="fas fa-shopping-bag"></i> Panier</h2>
+            <button class="close-cart" id="closeCart" aria-label="Fermer le panier">&times;</button>
         </div>
         <ul class="cart-items" id="cartItems"></ul>
         <div class="cart-total">
-            <span>Gesamt</span>
+            <span>Total</span>
             <span id="cartTotal">0,00 €</span>
         </div>
         <button class="checkout-btn" id="checkoutBtn">
-            <i class="fas fa-credit-card"></i> Zur Kasse
+            <i class="fas fa-credit-card"></i> Passer à la caisse
         </button>
     </div>
 
     <!-- ========== MODALE DE PAIEMENT ========== -->
     <div class="overlay" id="paymentOverlay"></div>
     <div class="payment-modal" id="paymentModal">
-        <h2><i class="fas fa-university"></i> Überweisung</h2>
-        <p style="margin-bottom: 0.2rem;">Bitte überweisen Sie den Gesamtbetrag an:</p>
+        <h2><i class="fas fa-university"></i> Virement</h2>
+        <p style="margin-bottom: 0.2rem;">Veuillez virer le montant total à :</p>
         <div class="iban-box">
             <span id="ibanDisplay">DE45 1001 0010 0410 6791 18</span>
-            <button class="copy-btn" id="copyIbanBtn"><i class="fas fa-copy"></i> Kopieren</button>
+            <button class="copy-btn" id="copyIbanBtn"><i class="fas fa-copy"></i> Copier</button>
         </div>
         <div class="bank-details">
-            <strong>Empfänger:</strong> Premium Elektronik GmbH<br>
-            <strong>BIC:</strong> PBNKDEFF<br>
-            <strong>Verwendungszweck:</strong> Bestellung #<span id="orderRef">2026-0816</span>
-        </div>
-
-        <!-- ====== FORMULAIRE CLIENT AVEC MENTION ====== -->
-        <div class="client-form">
-            <div class="form-hint">
-                <i class="fas fa-info-circle" style="color:var(--primary);"></i>
-                Bitte füllen Sie Ihre <strong>Lieferadresse</strong> aus (alle mit <span class="required-star">*</span> markierten Felder sind erforderlich).
-            </div>
-            <div class="full-width">
-                <label for="clientVorname">Vorname *</label>
-                <input type="text" id="clientVorname" placeholder="Max" required>
-            </div>
-            <div class="full-width">
-                <label for="clientNachname">Nachname *</label>
-                <input type="text" id="clientNachname" placeholder="Mustermann" required>
-            </div>
-            <div class="full-width">
-                <label for="clientEmail">E-Mail *</label>
-                <input type="email" id="clientEmail" placeholder="max@beispiel.de" required>
-            </div>
-            <div class="full-width">
-                <label for="clientTelefon">Telefon</label>
-                <input type="tel" id="clientTelefon" placeholder="+49 123 456789">
-            </div>
-            <div class="full-width">
-                <label for="clientAdresse">Adresse (Straße, Hausnummer, PLZ, Ort) *</label>
-                <textarea id="clientAdresse" placeholder="Musterstraße 1, 12345 Berlin" rows="2" required></textarea>
-            </div>
+            <strong>Bénéficiaire :</strong> Premium Électronique GmbH<br>
+            <strong>BIC :</strong> PBNKDEFF<br>
+            <strong>Motif :</strong> Commande #<span id="orderRef">2026-0816</span>
         </div>
 
         <div class="upload-section">
-            <label for="paymentProof"><i class="fas fa-image"></i> Beleg / Screenshot</label>
-            <div class="helper">Laden Sie einen Screenshot Ihrer Überweisung hoch.</div>
+            <label for="paymentProof"><i class="fas fa-image"></i> Justificatif / Capture d'écran</label>
+            <div class="helper">Téléchargez une capture d'écran de votre virement.</div>
             <input type="file" id="paymentProof" accept="image/*">
             <div class="preview-container" id="previewContainer"></div>
         </div>
 
         <button class="close-payment-btn" id="finalConfirmBtn">
-            <i class="fas fa-check-circle"></i> Zahlung bestätigen & E-Mail senden
+            <i class="fas fa-check-circle"></i> Confirmer le paiement & envoyer un e-mail
         </button>
         <p style="font-size:0.7rem; color:var(--text-muted); margin-top:0.4rem; text-align:center;">
-            Es öffnet sich Ihr E-Mail-Client mit allen Details. Bitte fügen Sie den Beleg manuell bei.
+            Votre client de messagerie s'ouvrira avec tous les détails. Veuillez joindre le justificatif manuellement.
         </p>
     </div>
 
@@ -683,7 +578,7 @@
 
     <!-- ========== FOOTER ========== -->
     <footer>
-        &copy; 2026 <span>Premium Elektronik</span> – Alle Rechte vorbehalten.
+        &copy; 2026 <span>Premium Électronique</span> – Tous droits réservés.
     </footer>
 
     <script>
@@ -718,10 +613,10 @@
         }
 
         // ============================================================
-        // 1. PRODUKTDATEN (69 produits)
+        // 1. PRODUKTDATEN – AVEC VOS NOMS DE FICHIERS EXACTS
         // ============================================================
         const products = [
-            // ===== IPHONE (8) =====
+            // ===== IPHONE =====
             { id: 1, name: "Apple iPhone 17 Pro Max", category: "iphone", price: 1276, image: "AppleiPhone17ProMax.jpg" },
             { id: 2, name: "Apple iPhone 17e", category: "iphone", price: 700, image: "AppleiPhone17e.jpg" },
             { id: 3, name: "Apple iPhone 16e", category: "iphone", price: 538, image: "AppleiPhone16e.jpg" },
@@ -731,36 +626,55 @@
             { id: 7, name: "Apple iPhone 16 Pro Max", category: "iphone", price: 890, image: "AppleiPhone16ProMax.jpg" },
             { id: 8, name: "Apple iPhone 12 Pro Max", category: "iphone", price: 580, image: "AppleiPhone12ProMax.jpg" },
 
-            // ===== ANDROID (27) =====
+            // ===== ANDROID =====
+            // Samsung
             { id: 9, name: "Samsung Galaxy S26 Ultra", category: "android", price: 1299, image: "SamsungGalaxyS26Ultra.jpg" },
             { id: 10, name: "Samsung Galaxy Z Fold8 Ultra", category: "android", price: 2199, image: "SamsungGalaxyZFold8Ultra.jpg" },
             { id: 11, name: "Samsung Galaxy Z Fold8", category: "android", price: 2000, image: "SamsungGalaxyZFold8.jpg" },
             { id: 12, name: "Samsung Galaxy Z Flip8", category: "android", price: 1299, image: "SamsungGalaxyZFlip8.jpg" },
             { id: 13, name: "Samsung Galaxy A57 5G", category: "android", price: 620, image: "SamsungGalaxyA575G.jpg" },
             { id: 14, name: "Samsung Galaxy A37", category: "android", price: 450, image: "SamsungGalaxyA37.jpg" },
+
+            // Xiaomi
             { id: 15, name: "Xiaomi 17 Ultra", category: "android", price: 1499, image: "Xiaomi17Ultra.jpg" },
             { id: 16, name: "Xiaomi 17", category: "android", price: 703, image: "Xiaomi17.jpg" },
             { id: 17, name: "Xiaomi Poco F9 Pro", category: "android", price: 799, image: "XiaomiPocoF9Pro.jpg" },
             { id: 18, name: "Xiaomi 15T Pro", category: "android", price: 580, image: "Xiaomi15TPro.jpg" },
             { id: 19, name: "Xiaomi Redmi Note 11", category: "android", price: 185, image: "XiaomiRedmiNote11.jpg" },
+
+            // Sony
             { id: 20, name: "Sony Xperia 1 VIII", category: "android", price: 1499, image: "SonyXperia1VIII.jpg" },
             { id: 21, name: "Sony Xperia 10 VII", category: "android", price: 465, image: "SonyXperia10VII.jpg" },
+
+            // Google
             { id: 22, name: "Google Pixel 11 Pro XL", category: "android", price: 1399, image: "GooglePixel11ProXL.jpg" },
             { id: 23, name: "Google Pixel 11 Pro Fold", category: "android", price: 1999, image: "GooglePixel11ProFold.jpg" },
             { id: 24, name: "Google Pixel 10 Pro XL", category: "android", price: 869, image: "GooglePixel10ProXL.jpg" },
             { id: 25, name: "Google Pixel 10a", category: "android", price: 549, image: "GooglePixel10a.jpg" },
             { id: 26, name: "Google Pixel 9a", category: "android", price: 465, image: "GooglePixel9a.jpg" },
+
+            // Oppo
             { id: 27, name: "Oppo Find X9 Pro", category: "android", price: 1059, image: "OppoFindX9Pro.jpg" },
+
+            // Vivo
             { id: 28, name: "Vivo X300 Pro", category: "android", price: 989, image: "VivoX300Pro.jpg" },
+
+            // Honor
             { id: 29, name: "Honor Magic 8 Pro", category: "android", price: 819, image: "HonorMagic8Pro.jpg" },
             { id: 30, name: "Honor Magic V6", category: "android", price: 2229, image: "HonorMagicV6.jpg" },
             { id: 31, name: "Honor 400 Pro", category: "android", price: 700, image: "Honor400Pro.jpg" },
+
+            // Motorola
             { id: 32, name: "Motorola Razr Fold", category: "android", price: 1999, image: "MotorolaRazrFold.jpg" },
             { id: 33, name: "Motorola Edge 70 Fusion", category: "android", price: 445, image: "MotorolaEdge70Fusion.jpg" },
+
+            // Nothing
             { id: 34, name: "Nothing Phone (3a) Pro", category: "android", price: 390, image: "NothingPhone(3a)Pro.jpg" },
+
+            // Nubia
             { id: 35, name: "Nubia Air Pro", category: "android", price: 449, image: "NubiaAirPro.jpg" },
 
-            // ===== PC (10) =====
+            // ===== PC =====
             { id: 36, name: "Apple MacBook Neo", category: "pc", price: 749, image: "AppleMacBookNeo.jpg" },
             { id: 37, name: "Lenovo IdeaPad Slim 3", category: "pc", price: 1009, image: "LenovoIdeaPadSlim3.jpg" },
             { id: 38, name: "Acer Swift Air 14", category: "pc", price: 799, image: "AcerSwiftAir14.jpg" },
@@ -772,7 +686,7 @@
             { id: 44, name: "Chuwi CoreBook Air", category: "pc", price: 549, image: "ChuwiCoreBookAir.jpg" },
             { id: 45, name: "Acer Nitro 18 AI", category: "pc", price: 1900, image: "AcerNitro18AI.jpg" },
 
-            // ===== CAMERAS (8) =====
+            // ===== CAMERAS =====
             { id: 46, name: "Sony Alpha 7V", category: "camera", price: 2800, image: "SonyAlpha7V.jpg" },
             { id: 47, name: "Canon EOS R6 Mark III", category: "camera", price: 2899, image: "CanonEOSR6MarkIII.jpg" },
             { id: 48, name: "Nikon Z6 III", category: "camera", price: 2029, image: "NikonZ6III.jpg" },
@@ -780,27 +694,7 @@
             { id: 50, name: "Leica Q3", category: "camera", price: 6490, image: "LeicaQ3.jpg" },
             { id: 51, name: "Panasonic Lumix S5D", category: "camera", price: 799, image: "PanasonicLumixS5D.jpg" },
             { id: 52, name: "Fujifilm X100VI", category: "camera", price: 1799, image: "FujifilmX100VI.jpg" },
-            { id: 53, name: "Sony Cyber-shot RX100 VII", category: "camera", price: 1227, image: "SonyCyber-shotRX100VII.jpg" },
-
-            // ===== HAARGLÄTTER (8) =====
-            { id: 54, name: "Dyson Corrale", category: "haarglatter", price: 350, image: "DysonCorrale.jpg" },
-            { id: 55, name: "ghd Chronos", category: "haarglatter", price: 367, image: "ghdChronos.jpg" },
-            { id: 56, name: "ghd Platinum+", category: "haarglatter", price: 254, image: "ghdPlatinum+.jpg" },
-            { id: 57, name: "L'Oréal Professionnel Steampod 4.0", category: "haarglatter", price: 300, image: "LOréalProfessionnelSteampod4.0.jpg" },
-            { id: 58, name: "Babyliss Titanium Shine ST620E", category: "haarglatter", price: 73, image: "BabylissTitaniumShineST620E.jpg" },
-            { id: 59, name: "Remington Keratin Protect S8540", category: "haarglatter", price: 50, image: "RemingtonKeratinProtectS8540.jpg" },
-            { id: 60, name: "Calor ThermoCare", category: "haarglatter", price: 79, image: "CalorThermoCare.jpg" },
-            { id: 61, name: "Babyliss Steam Shine ST496E", category: "haarglatter", price: 64, image: "BabylissSteamShineST496E.jpg" },
-
-            // ===== LAUTSPRECHER (8) =====
-            { id: 62, name: "Sonos Roam 2", category: "lautsprecher", price: 179, image: "SonosRoam2.jpg" },
-            { id: 63, name: "JBL Charge 5 Wi-Fi", category: "lautsprecher", price: 199, image: "JBLCharge5Wi-Fi.jpg" },
-            { id: 64, name: "Bose SoundLink Max", category: "lautsprecher", price: 399, image: "BoseSoundLinkMax.jpg" },
-            { id: 65, name: "UE BOOM 3", category: "lautsprecher", price: 129, image: "UEBOOM3.jpg" },
-            { id: 66, name: "Marshall Emberton II", category: "lautsprecher", price: 149, image: "MarshallEmbertonII.jpg" },
-            { id: 67, name: "Sony SRS-XB100", category: "lautsprecher", price: 65, image: "SonySRSXB100.jpg" },
-            { id: 68, name: "Bose SoundLink Flex 2e Gen", category: "lautsprecher", price: 100, image: "BoseSoundLinkFlex2eGen.jpg" },
-            { id: 69, name: "JBL Flip 6", category: "lautsprecher", price: 90, image: "JBLFlip6.jpg" }
+            { id: 53, name: "Sony Cyber-shot RX100 VII", category: "camera", price: 1227, image: "SonyCyber-shotRX100VII.jpg" }
         ];
 
         // ============================================================
@@ -820,7 +714,7 @@
 
             const cartItemsEl = document.getElementById('cartItems');
             if (cart.length === 0) {
-                cartItemsEl.innerHTML = `<li class="empty-cart">Ihr Warenkorb ist leer.</li>`;
+                cartItemsEl.innerHTML = `<li class="empty-cart">Votre panier est vide.</li>`;
             } else {
                 cartItemsEl.innerHTML = cart.map(item => `
                     <li class="cart-item" data-id="${item.id}">
@@ -829,10 +723,10 @@
                             <span class="cart-item-price">${(item.price * item.quantity).toFixed(2)} €</span>
                         </div>
                         <div class="cart-item-actions">
-                            <button class="qty-btn" data-id="${item.id}" data-delta="-1" aria-label="Menge reduzieren">−</button>
+                            <button class="qty-btn" data-id="${item.id}" data-delta="-1" aria-label="Réduire la quantité">−</button>
                             <span>${item.quantity}</span>
-                            <button class="qty-btn" data-id="${item.id}" data-delta="1" aria-label="Menge erhöhen">+</button>
-                            <button class="remove-btn" data-id="${item.id}" aria-label="Entfernen"><i class="fas fa-trash-alt"></i></button>
+                            <button class="qty-btn" data-id="${item.id}" data-delta="1" aria-label="Augmenter la quantité">+</button>
+                            <button class="remove-btn" data-id="${item.id}" aria-label="Supprimer"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </li>
                 `).join('');
@@ -864,7 +758,7 @@
             }
             updateCart();
             saveCart();
-            showToast(`${product.name} wurde hinzugefügt!`);
+            showToast(`${product.name} a été ajouté !`);
         }
 
         function removeFromCart(productId) {
@@ -891,11 +785,18 @@
         // ============================================================
         let currentCategory = 'all';
 
+        const categoryNames = {
+            'pc': 'PC',
+            'iphone': 'iPhone',
+            'android': 'Android',
+            'camera': 'Appareil photo'
+        };
+
         function renderProducts(category = 'all') {
             const filtered = category === 'all' ? products : products.filter(p => p.category === category);
             const grid = document.getElementById('productsGrid');
             if (filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:2rem;">Keine Produkte in dieser Kategorie.</p>`;
+                grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:var(--text-muted); padding:2rem;">Aucun produit dans cette catégorie.</p>`;
                 return;
             }
             grid.innerHTML = filtered.map(p => `
@@ -905,10 +806,10 @@
                     </div>
                     <div class="product-info">
                         <div class="product-name">${p.name}</div>
-                        <div class="product-category">${p.category.charAt(0).toUpperCase() + p.category.slice(1)}</div>
+                        <div class="product-category">${categoryNames[p.category] || p.category}</div>
                         <div class="product-price">${p.price.toFixed(2)} €</div>
                         <button class="add-to-cart" data-id="${p.id}">
-                            <i class="fas fa-cart-plus"></i> In den Warenkorb
+                            <i class="fas fa-cart-plus"></i> Ajouter au panier
                         </button>
                     </div>
                 </div>
@@ -960,7 +861,6 @@
         const fileInput = document.getElementById('paymentProof');
         const previewContainer = document.getElementById('previewContainer');
         const STORE_EMAIL = 'votre-email@domaine.fr'; // ⬅️ À REMPLACER
-        const SERVICE_EMAIL = 'service-client@domaine.fr'; // ⬅️ À REMPLACER (pour le lien contact)
 
         function openPaymentModal() {
             const now = new Date();
@@ -977,21 +877,16 @@
             paymentModal.classList.remove('open');
         }
         document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if (cart.length === 0) { showToast('Ihr Warenkorb ist leer!'); return; }
+            if (cart.length === 0) { showToast('Votre panier est vide !'); return; }
             openPaymentModal();
         });
         paymentOverlay.addEventListener('click', closePaymentModal);
-
-        // Mise à jour du lien contact dans le header (si vous utilisez SERVICE_EMAIL)
-        document.querySelector('.header-actions a[href^="mailto:"]')?.addEventListener('click', function(e) {
-            // Le mailto est déjà intégré, on ne fait rien de plus
-        });
 
         fileInput.addEventListener('change', function(e) {
             const file = this.files[0];
             if (!file) { previewContainer.innerHTML = ''; return; }
             if (file.size > 2 * 1024 * 1024) {
-                showToast('⚠️ Datei zu groß (max. 2 MB).');
+                showToast('⚠️ Fichier trop volumineux (max. 2 Mo).');
                 this.value = '';
                 previewContainer.innerHTML = '';
                 return;
@@ -999,67 +894,43 @@
             const reader = new FileReader();
             reader.onload = function(ev) {
                 previewContainer.innerHTML = `
-                    <img src="${ev.target.result}" alt="Vorschau">
-                    <span class="file-name">${file.name} (${(file.size / 1024).toFixed(0)} KB)</span>
+                    <img src="${ev.target.result}" alt="Aperçu">
+                    <span class="file-name">${file.name} (${(file.size / 1024).toFixed(0)} Ko)</span>
                 `;
             };
             reader.readAsDataURL(file);
         });
 
         // ============================================================
-        // 7. VALIDATION + EMAIL (avec coordonnées client)
+        // 7. VALIDATION + EMAIL
         // ============================================================
         document.getElementById('finalConfirmBtn').addEventListener('click', function() {
-            // Récupération des coordonnées client
-            const vorname = document.getElementById('clientVorname').value.trim();
-            const nachname = document.getElementById('clientNachname').value.trim();
-            const email = document.getElementById('clientEmail').value.trim();
-            const telefon = document.getElementById('clientTelefon').value.trim();
-            const adresse = document.getElementById('clientAdresse').value.trim();
-
-            // Vérification des champs obligatoires
-            if (!vorname || !nachname || !email || !adresse) {
-                showToast('⚠️ Bitte füllen Sie alle Pflichtfelder aus (Vorname, Nachname, E-Mail, Adresse).');
-                return;
-            }
-            if (!email.includes('@') || !email.includes('.')) {
-                showToast('⚠️ Bitte geben Sie eine gültige E-Mail-Adresse ein.');
-                return;
-            }
-
             if (cart.length === 0) {
-                showToast('Ihr Warenkorb ist leer.');
+                showToast('Votre panier est vide.');
                 closePaymentModal();
                 return;
             }
-
             const file = fileInput.files[0];
             const total = cart.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
             const itemsList = cart.map(i => `${i.name} x ${i.quantity} (${(i.price * i.quantity).toFixed(2)} €)`).join('\n');
             const orderRef = document.getElementById('orderRef').textContent;
             const iban = document.getElementById('ibanDisplay').textContent.trim();
 
-            let body = `Bestellung #${orderRef}\n\n`;
-            body += `Kundendaten:\n`;
-            body += `Name: ${vorname} ${nachname}\n`;
-            body += `E-Mail: ${email}\n`;
-            if (telefon) body += `Telefon: ${telefon}\n`;
-            body += `Adresse: ${adresse}\n\n`;
-            body += `Bestellte Produkte:\n${itemsList}\n\n`;
-            body += `Gesamtbetrag: ${total} €\n\n`;
-            body += `Bankverbindung:\nIBAN: ${iban}\nBIC: PBNKDEFF\nEmpfänger: Premium Elektronik GmbH\n\n`;
-            body += `--- WICHTIG ---\n`;
-            if (file) body += `Sie haben die Datei "${file.name}" hochgeladen.\n`;
-            body += `Bitte hängen Sie Ihren Überweisungsbeleg (Foto/Screenshot) an diese E-Mail an.\n\n`;
-            body += `Vielen Dank für Ihre Bestellung!`;
+            let body = `Commande #${orderRef}\n\n`;
+            body += `Produits :\n${itemsList}\n\n`;
+            body += `Montant total : ${total} €\n\n`;
+            body += `Coordonnées bancaires :\nIBAN : ${iban}\nBIC : PBNKDEFF\nBénéficiaire : Premium Électronique GmbH\n\n`;
+            body += `--- IMPORTANT ---\n`;
+            if (file) body += `Vous avez téléchargé le fichier "${file.name}".\n`;
+            body += `Veuillez joindre votre justificatif de virement (photo/capture d'écran) à cet e-mail.\n\n`;
+            body += `Merci pour votre commande !`;
 
-            const subject = encodeURIComponent(`Bestellung #${orderRef} - ${vorname} ${nachname}`);
+            const subject = encodeURIComponent(`Commande #${orderRef}`);
             const mailBody = encodeURIComponent(body);
             const mailtoLink = `mailto:${STORE_EMAIL}?subject=${subject}&body=${mailBody}`;
 
             window.open(mailtoLink, '_blank');
-
-            showToast(`✅ Bestellung #${orderRef} erfasst! Bitte senden Sie den Beleg per E-Mail.`);
+            showToast(`✅ Commande #${orderRef} enregistrée ! Veuillez envoyer le justificatif par e-mail.`);
             cart = [];
             updateCart();
             saveCart();
@@ -1073,7 +944,7 @@
             const iban = document.getElementById('ibanDisplay').textContent.trim();
             try {
                 await navigator.clipboard.writeText(iban);
-                showToast('✅ IBAN kopiert!');
+                showToast('✅ IBAN copié !');
             } catch {
                 const textArea = document.createElement('textarea');
                 textArea.value = iban;
@@ -1081,7 +952,7 @@
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                showToast('✅ IBAN kopiert!');
+                showToast('✅ IBAN copié !');
             }
         });
 
